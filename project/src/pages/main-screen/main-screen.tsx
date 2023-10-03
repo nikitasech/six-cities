@@ -1,10 +1,10 @@
 import PlaceCard from '../../components/place-card/place-card';
 
 type MainScreenProps = {
-  cardCount: number;
+  propertyCount: number;
 };
 
-function MainScreen({ cardCount = 0 }: MainScreenProps): JSX.Element {
+function MainScreen({ propertyCount = 0 }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -77,7 +77,7 @@ function MainScreen({ cardCount = 0 }: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{cardCount} places to stay in Amsterdam</b>
+              <b className="places__found">{propertyCount} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -95,7 +95,7 @@ function MainScreen({ cardCount = 0 }: MainScreenProps): JSX.Element {
               </form>
               <div className="cities__places-list places__list tabs__content">
                 {/* #TODO Линтер ругается на отсутствие key! */}
-                {Array.from({ length: cardCount }, () => <PlaceCard key={cardCount} />)}
+                {Array.from({ length: propertyCount }, () => <PlaceCard key={propertyCount} />)}
               </div>
             </section>
             <div className="cities__right-section">
