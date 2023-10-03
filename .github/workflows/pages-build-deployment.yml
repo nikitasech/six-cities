@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+env:
+  CI: false
+
 defaults:
   run:
     working-directory: project
