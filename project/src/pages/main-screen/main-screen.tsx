@@ -6,7 +6,7 @@ type MainScreenProps = {
   propertyCount: number;
 };
 
-function MainScreen({ propertyCount = 0 }: MainScreenProps): JSX.Element {
+export default function MainScreen({ propertyCount = 0 }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -110,4 +110,3 @@ function MainScreen({ propertyCount = 0 }: MainScreenProps): JSX.Element {
   );
 }
 
-export default MainScreen;

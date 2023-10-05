@@ -11,7 +11,7 @@ type AppProps = {
   propertyCount: number;
 }
 
-function App({ propertyCount }: AppProps): JSX.Element {
+export default function App({ propertyCount }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -29,5 +29,3 @@ function App({ propertyCount }: AppProps): JSX.Element {
     </BrowserRouter>
   );
 }
-
-export default App;
