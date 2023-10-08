@@ -1,33 +1,35 @@
+import { Link } from 'react-router-dom';
 import PlaceCard from '../../components/place-card/place-card';
+import { AppRoute } from '../../const';
 
 type MainScreenProps = {
   propertyCount: number;
 };
 
-function MainScreen({ propertyCount = 0 }: MainScreenProps): JSX.Element {
+export default function MainScreen({ propertyCount = 0 }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
+              <Link className="header__logo-link header__logo-link--active" to={AppRoute.Root}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <Link className="header__nav-link" to={window.location.pathname}>
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -41,34 +43,34 @@ function MainScreen({ propertyCount = 0 }: MainScreenProps): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to={AppRoute.Root}>
                   <span>Paris</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to={AppRoute.Root}>
                   <span>Cologne</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to={AppRoute.Root}>
                   <span>Brussels</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <Link className="locations__item-link tabs__item tabs__item--active" to={AppRoute.Root}>
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to={AppRoute.Root}>
                   <span>Hamburg</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link className="locations__item-link tabs__item" to={AppRoute.Root}>
                   <span>Dusseldorf</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </section>
@@ -95,7 +97,7 @@ function MainScreen({ propertyCount = 0 }: MainScreenProps): JSX.Element {
               </form>
               <div className="cities__places-list places__list tabs__content">
                 {/* #TODO Линтер ругается на отсутствие key! */}
-                {Array.from({ length: propertyCount }, () => <PlaceCard key={propertyCount} />)}
+                {Array.from({ length: propertyCount }, (el, index) => <PlaceCard key={index} />)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -108,4 +110,3 @@ function MainScreen({ propertyCount = 0 }: MainScreenProps): JSX.Element {
   );
 }
 
-export default MainScreen;
