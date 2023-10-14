@@ -4,23 +4,29 @@ import { Offer } from '../../types/offer';
 
 type OfferCardProps = {
   offer: Offer;
+  onMouseMove: (id: number) => void;
+  onMouseLeave: () => void;
 }
 
-export default function OfferCard({offer}: OfferCardProps): JSX.Element {
+export default function OfferCard({offer, onMouseMove, onMouseLeave}: OfferCardProps): JSX.Element {
   const bookmarkClassName = `place-card__bookmark-button button ${offer.isFavorite
     ? 'place-card__bookmark-button--active'
     : ''
   }`;
+  const premiumMark = offer.isPremium
+    ? <div className="place-card__mark"><span>Premium</span></div>
+    : null;
   const ratingPercentage = offer.rating / 5 * 100;
   const linkToOffer = `${AppRoute.Offer}/${offer.id}`;
 
+  const handleOfferMouseLeave = onMouseLeave;
+  const handleOfferMouseMove = () => {
+    onMouseMove(offer.id);
+  };
+
   return (
-    <article className="cities__place-card place-card">
-      {
-        offer.isPremium
-          ? <div className="place-card__mark"><span>Premium</span></div>
-          : null
-      }
+    <article className="cities__place-card place-card" onMouseMove={handleOfferMouseMove} onMouseLeave={handleOfferMouseLeave}>
+      {premiumMark}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={linkToOffer}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place" />
