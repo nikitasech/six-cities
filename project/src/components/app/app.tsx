@@ -19,7 +19,7 @@ export default function App({ offers }: AppProps): JSX.Element {
         <Route path={AppRoute.Root} element={<MainScreen offers={offers} />} />
         <Route path={AppRoute.Favorites} element={
           <PrivateRoute authStatus={AuthStatus.Auth}>
-            <FavoritesScreen />
+            <FavoritesScreen offers={offers} />
           </PrivateRoute>
         }
         />

@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { Offer } from '../../types/offer';
 
-export default function FavoritesScreen(): JSX.Element {
+type FavoriteScreenProps = {
+  offers: Offer[];
+};
+
+export default function FavoritesScreen({offers}: FavoriteScreenProps): JSX.Element {
   return (
     <div className="page">
       <header className="header">
