@@ -15,3 +15,12 @@ export enum TypeCard {
   Cities = 'CITIES',
   Favorite = 'FAVORITE'
 }
+
+export enum Location {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf'
+}
