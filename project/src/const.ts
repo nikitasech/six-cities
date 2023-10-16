@@ -10,3 +10,8 @@ export enum AuthStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN'
 }
+
+export enum TypeCard {
+  Cities = 'CITIES',
+  Favorite = 'FAVORITE'
+}
