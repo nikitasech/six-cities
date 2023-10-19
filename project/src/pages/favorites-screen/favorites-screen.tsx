@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, Location } from '../../const';
 import { Offer } from '../../types/offer';
 import FavoriteLocation from '../../components/favorite-location/favorite-location';
+import Footer from '../../components/footer/footer';
 
 type FavoriteScreenProps = {
   offers: Offer[];
@@ -48,11 +49,7 @@ export default function FavoritesScreen({offers}: FavoriteScreenProps): JSX.Elem
           </section>
         </div>
       </main>
-      <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
-      </footer>
+      <Footer />
     </div>
   );
 }
