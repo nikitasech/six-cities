@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, TypeCard } from '../../const';
+import { AppRoute, Location, TypeCard } from '../../const';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
 
 type FavoriteLocationProps = {
-  location: string;
+  location: Location;
   offers: Offer[];
 }
 
