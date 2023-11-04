@@ -3,10 +3,10 @@ import { Offer } from '../types/offer';
 export const offers: Offer[] = [
   {
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
+        latitude: 52.37454,
+        longitude: 4.897976,
         zoom: 13
       }
     },
@@ -47,18 +47,18 @@ export const offers: Offer[] = [
     },
     description: 'This is a place for dreamers to reset, reflect, and create. Designed with a \'slow\' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     location: {
-      latitude: 48.837610000000005,
-      longitude: 2.364499,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 16
     },
     id: 4
   },
   {
     city: {
-      name: 'Brussels',
+      name: 'Amsterdam',
       location: {
-        latitude: 50.846557,
-        longitude: 4.351697,
+        latitude: 52.37454,
+        longitude: 4.897976,
         zoom: 13
       }
     },
@@ -99,18 +99,18 @@ export const offers: Offer[] = [
     },
     description: 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
     location: {
-      latitude: 50.867557,
-      longitude: 4.357697,
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
       zoom: 16
     },
     id: 73
   },
   {
     city: {
-      name: 'Hamburg',
+      name: 'Amsterdam',
       location: {
-        latitude: 53.550341,
-        longitude: 10.000654,
+        latitude: 52.37454,
+        longitude: 4.897976,
         zoom: 13
       }
     },
@@ -152,18 +152,18 @@ export const offers: Offer[] = [
     },
     description: 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     location: {
-      latitude: 53.573341000000006,
-      longitude: 9.994654,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 16
     },
     id: 76
   },
   {
     city: {
-      name: 'Brussels',
+      name: 'Amsterdam',
       location: {
-        latitude: 50.846557,
-        longitude: 4.351697,
+        latitude: 52.37454,
+        longitude: 4.897976,
         zoom: 13
       }
     },
@@ -210,8 +210,8 @@ export const offers: Offer[] = [
     },
     description: 'This is a place for dreamers to reset, reflect, and create. Designed with a \'slow\' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     location: {
-      latitude: 50.860557,
-      longitude: 4.376697,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 16
     },
     id: 8

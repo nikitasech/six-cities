@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
+import ListMap from '../map/map';
+import { City } from '../../types/city';
 
 type OffersListProps = {
+  city: City;
   offers: Offer[];
 }
 
-export default function OffersList({offers}: OffersListProps): JSX.Element {
+export default function OffersList({city, offers}: OffersListProps): JSX.Element {
   // eslint-disable-next-line no-unused-expressions, @typescript-eslint/no-unused-vars
   const [activeOffer, setActiveOffer] = useState<number|null>(null);
 
@@ -51,7 +54,7 @@ export default function OffersList({offers}: OffersListProps): JSX.Element {
           </div>
         </section>
         <div className="cities__right-section">
-          <section className="cities__map map"></section>
+          <ListMap city={city} />
         </div>
       </div>
     </div>

@@ -7,16 +7,21 @@ import OfferScreen from '../../pages/property-screen/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { Offer } from '../../types/offer';
+import { City } from '../../types/city';
 
 type AppProps = {
   offers: Offer[];
+  city: City;
 }
 
-export default function App({ offers }: AppProps): JSX.Element {
+export default function App({ city, offers }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<MainScreen offers={offers} />} />
+        <Route
+          path={AppRoute.Root}
+          element={<MainScreen city={city} offers={offers} />}
+        />
         <Route path={AppRoute.Favorites} element={
           <PrivateRoute authStatus={AuthStatus.Auth}>
             <FavoritesScreen offers={offers} />
