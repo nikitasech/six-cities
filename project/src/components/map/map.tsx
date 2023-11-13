@@ -4,16 +4,23 @@ import useMap from '../../hooks/use-map';
 import { Offer } from '../../types/offer';
 import usePoints from '../../hooks/use-points';
 
-type MapPointsProps = {
+export enum PlaceMap {
+  MAIN = 'cities'
+}
+
+type MapProps = {
+  place?: PlaceMap;
   city: City;
   offers: Offer[];
   activeOffer: Offer | null;
 }
 
-export default function MapPoints({ city, offers, activeOffer }: MapPointsProps): JSX.Element {
+export default function Map({ place = PlaceMap.MAIN, city, offers, activeOffer }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   usePoints(map, offers, activeOffer);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  const mapClasses = `${place}__map map`;
+
+  return <section className={mapClasses} ref={mapRef}></section>;
 }

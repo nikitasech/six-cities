@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
 import { City } from '../../types/city';
-import MapPoints from '../map/map-points';
+import Map from '../map/map';
 
 type OffersListProps = {
   city: City;
@@ -44,7 +44,7 @@ export default function OffersList({city, offers}: OffersListProps): JSX.Element
           </div>
         </section>
         <div className="cities__right-section">
-          <MapPoints city={city} offers={offers} activeOffer={activeOffer} />
+          <Map city={city} offers={offers} activeOffer={activeOffer} />
         </div>
       </div>
     </div>
