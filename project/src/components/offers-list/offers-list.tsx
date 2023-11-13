@@ -10,16 +10,7 @@ type OffersListProps = {
 }
 
 export default function OffersList({city, offers}: OffersListProps): JSX.Element {
-  // eslint-disable-next-line no-unused-expressions, @typescript-eslint/no-unused-vars
-  const [activeOffer, setActiveOffer] = useState<number|null>(null);
-
-  const handleOfferMouseMove = (id: number) => {
-    setActiveOffer(id);
-  };
-
-  const handleOfferMouseLeave = () => {
-    setActiveOffer(null);
-  };
+  const [activeOffer, setActiveOffer] = useState<Offer|null>(null);
 
   return (
     <div className="cities">
@@ -47,14 +38,13 @@ export default function OffersList({city, offers}: OffersListProps): JSX.Element
               <OfferCard
                 key={offer.id}
                 offer={offer}
-                onMouseMove={handleOfferMouseMove}
-                onMouseLeave={handleOfferMouseLeave}
+                setActiveOffer={setActiveOffer}
               />
             ))}
           </div>
         </section>
         <div className="cities__right-section">
-          <MapPoints city={city} offers={offers} />
+          <MapPoints city={city} offers={offers} activeOffer={activeOffer} />
         </div>
       </div>
     </div>

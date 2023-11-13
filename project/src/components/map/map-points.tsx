@@ -7,12 +7,13 @@ import usePoints from '../../hooks/use-points';
 type MapPointsProps = {
   city: City;
   offers: Offer[];
+  activeOffer: Offer | null;
 }
 
-export default function MapPoints({ city, offers }: MapPointsProps): JSX.Element {
+export default function MapPoints({ city, offers, activeOffer }: MapPointsProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  usePoints(map, offers);
+  usePoints(map, offers, activeOffer);
 
   return <section className="cities__map map" ref={mapRef}></section>;
 }

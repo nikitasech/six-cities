@@ -2,19 +2,18 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { AppRoute, TypeCard } from '../../const';
 import { Offer } from '../../types/offer';
+import { MouseEvent } from 'react';
 
 type OfferCardProps = {
   offer: Offer;
   type?: TypeCard;
-  onMouseMove?: (id: number) => void;
-  onMouseLeave?: () => void;
+  setActiveOffer?: (offer: Offer | null) => void;
 }
 
 export default function OfferCard({
   offer,
   type = TypeCard.Cities,
-  onMouseMove,
-  onMouseLeave
+  setActiveOffer
 }: OfferCardProps): JSX.Element {
   const articleClasses = classNames('place-card', {
     'favorites__card': type === TypeCard.Favorite,
@@ -46,10 +45,19 @@ export default function OfferCard({
   const ratingPercentage = offer.rating / 5 * 100;
   const linkToOffer = `${AppRoute.Offer}/${offer.id}`;
 
+  const handleMouseEvent = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
+
+    if (setActiveOffer) {
+      setActiveOffer((evt.type === 'mouseenter') ? offer : null);
+    }
+  };
+
   return (
-    <article className={articleClasses}
-      onMouseMove={() => onMouseMove ? onMouseMove : null}
-      onMouseLeave={() => onMouseLeave ? onMouseLeave : null}
+    <article
+      className={articleClasses}
+      onMouseEnter={handleMouseEvent.bind(OfferCard)}
+      onMouseLeave={handleMouseEvent}
     >
       {premiumMark}
       <div className={previewClasses}>
