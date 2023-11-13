@@ -5,7 +5,8 @@ import { Offer } from '../../types/offer';
 import usePoints from '../../hooks/use-points';
 
 export enum PlaceMap {
-  MAIN = 'cities'
+  MAIN = 'cities',
+  OFFER = 'property'
 }
 
 type MapProps = {

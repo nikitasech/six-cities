@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import FormReview from '../../components/form-review/form-review';
 import Header from '../../components/header/header';
+import Map, { PlaceMap } from '../../components/map/map';
+import { offers } from '../../mocks/offers';
+import { city } from '../../mocks/city';
 
 export default function OfferScreen(): JSX.Element {
   const isRenderNav = true;
@@ -158,7 +161,7 @@ export default function OfferScreen(): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <Map place={PlaceMap.OFFER} city={city} offers={offers} activeOffer={offers[0]} />
         </section>
         <div className="container">
           <section className="near-places places">
