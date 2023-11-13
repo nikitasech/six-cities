@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
-import ListMap from '../map/map';
 import { City } from '../../types/city';
+import MapPoints from '../map/map-points';
 
 type OffersListProps = {
   city: City;
@@ -54,7 +54,7 @@ export default function OffersList({city, offers}: OffersListProps): JSX.Element
           </div>
         </section>
         <div className="cities__right-section">
-          <ListMap city={city} />
+          <MapPoints city={city} offers={offers} />
         </div>
       </div>
     </div>
