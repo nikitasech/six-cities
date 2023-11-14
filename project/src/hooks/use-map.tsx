@@ -18,6 +18,7 @@ export default function useMap(
     if (mapRef.current !== null && map === null) {
       instance = new Map(mapRef.current, {
         zoom: city.location.zoom,
+        scrollWheelZoom: false,
         center: {
           lat: city.location.latitude,
           lng: city.location.longitude
