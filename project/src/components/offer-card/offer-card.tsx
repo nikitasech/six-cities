@@ -1,23 +1,31 @@
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { AppRoute, TypeCard } from '../../const';
+import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 import { MouseEvent } from 'react';
 
+export enum PlaceOfferCard {
+  MAIN = 'cities',
+  NEAR = 'near',
+  FAVORITES = 'favorites'
+}
+
 type OfferCardProps = {
   offer: Offer;
-  type?: TypeCard;
+  place?: PlaceOfferCard;
   setActiveOffer?: (offer: Offer | null) => void;
 }
 
 export default function OfferCard({
   offer,
-  type = TypeCard.Cities,
+  place = PlaceOfferCard.MAIN,
   setActiveOffer
 }: OfferCardProps): JSX.Element {
   const articleClasses = classNames('place-card', {
-    'favorites__card': type === TypeCard.Favorite,
-    'cities__place-card': type === TypeCard.Cities
+    'favorites__card': place === PlaceOfferCard.FAVORITES,
+    'cities__place-card': place === PlaceOfferCard.MAIN,
+    'near-places__card': place === PlaceOfferCard.NEAR
+
   });
 
   const premiumMark = offer.isPremium
@@ -25,17 +33,18 @@ export default function OfferCard({
     : null;
 
   const previewClasses = classNames('place-card__image-wrapper', {
-    'favorites__image-wrapper': type === TypeCard.Favorite,
-    'cities__image-wrapper': type === TypeCard.Cities
+    'favorites__image-wrapper': place === PlaceOfferCard.FAVORITES,
+    'cities__image-wrapper': place === PlaceOfferCard.MAIN,
+    'near-places__image-wrapper': place === PlaceOfferCard.NEAR
   });
 
   const PreviewSize = {
-    WIDTH: type === TypeCard.Favorite ? 150 : 260,
-    HEIGHT: type === TypeCard.Favorite ? 110 : 200
+    WIDTH: place === PlaceOfferCard.FAVORITES ? 150 : 260,
+    HEIGHT: place === PlaceOfferCard.FAVORITES ? 110 : 200
   };
 
   const infoClasses = classNames('place-card__info', {
-    'favorites__card-info': type === TypeCard.Favorite
+    'favorites__card-info': place === PlaceOfferCard.FAVORITES
   });
 
   const bookmarkClasses = classNames('place-card__bookmark-button', 'button', {
@@ -86,7 +95,7 @@ export default function OfferCard({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: ratingPercentage}}></span>
+            <span style={{ width: ratingPercentage }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
