@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 import { MouseEvent } from 'react';
+import Rating, { PlaceRating } from '../rating/rating';
 
 export enum PlaceOfferCard {
   MAIN = 'cities',
@@ -51,7 +52,6 @@ export default function OfferCard({
     'place-card__bookmark-button--active': offer.isFavorite
   });
 
-  const ratingPercentage = offer.rating / 5 * 100;
   const linkToOffer = `${AppRoute.Offer}/${offer.id}`;
 
   const handleMouseEvent = (evt: MouseEvent<HTMLElement>) => {
@@ -93,12 +93,7 @@ export default function OfferCard({
             <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: ratingPercentage }}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating place={PlaceRating.CARD} rating={offer.rating} />
         <h2 className="place-card__name">
           <Link to={linkToOffer}>{offer.title}</Link>
         </h2>
