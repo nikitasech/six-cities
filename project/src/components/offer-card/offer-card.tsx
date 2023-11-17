@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import cn from 'classnames';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
@@ -8,7 +8,7 @@ import Bookmark, { PlaceBookmark } from '../bookmark/boormark';
 
 export enum PlaceOfferCard {
   MAIN = 'cities',
-  NEAR = 'near',
+  NEAR = 'near-places',
   FAVORITES = 'favorites'
 }
 
@@ -23,33 +23,22 @@ export default function OfferCard({
   place = PlaceOfferCard.MAIN,
   setActiveOffer
 }: OfferCardProps): JSX.Element {
-  const articleClasses = classNames('place-card', {
-    'favorites__card': place === PlaceOfferCard.FAVORITES,
+  const linkToOffer = `${AppRoute.Offer}/${offer.id}`;
+  const previewClasses = `place-card__image-wrapper ${place}__image-wrapper`;
+  const articleClasses = cn('place-card', {
     'cities__place-card': place === PlaceOfferCard.MAIN,
-    'near-places__card': place === PlaceOfferCard.NEAR
-
+    'near-places__card': place === PlaceOfferCard.NEAR,
+    'favorites__card': place === PlaceOfferCard.FAVORITES
   });
 
-  const premiumMark = offer.isPremium
-    ? <div className="place-card__mark"><span>Premium</span></div>
-    : null;
-
-  const previewClasses = classNames('place-card__image-wrapper', {
-    'favorites__image-wrapper': place === PlaceOfferCard.FAVORITES,
-    'cities__image-wrapper': place === PlaceOfferCard.MAIN,
-    'near-places__image-wrapper': place === PlaceOfferCard.NEAR
+  const infoClasses = cn('place-card__info', {
+    'favorites__card-info': place === PlaceOfferCard.FAVORITES
   });
 
   const PreviewSize = {
     WIDTH: place === PlaceOfferCard.FAVORITES ? 150 : 260,
     HEIGHT: place === PlaceOfferCard.FAVORITES ? 110 : 200
   };
-
-  const infoClasses = classNames('place-card__info', {
-    'favorites__card-info': place === PlaceOfferCard.FAVORITES
-  });
-
-  const linkToOffer = `${AppRoute.Offer}/${offer.id}`;
 
   const handleMouseEvent = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
@@ -65,7 +54,7 @@ export default function OfferCard({
       onMouseEnter={handleMouseEvent.bind(OfferCard)}
       onMouseLeave={handleMouseEvent}
     >
-      {premiumMark}
+      {offer.isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={previewClasses}>
         <Link to={linkToOffer}>
           <img
