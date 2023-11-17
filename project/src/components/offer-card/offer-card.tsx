@@ -4,6 +4,7 @@ import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 import { MouseEvent } from 'react';
 import Rating, { PlaceRating } from '../rating/rating';
+import Bookmark, { PlaceBookmark } from '../bookmark/boormark';
 
 export enum PlaceOfferCard {
   MAIN = 'cities',
@@ -48,10 +49,6 @@ export default function OfferCard({
     'favorites__card-info': place === PlaceOfferCard.FAVORITES
   });
 
-  const bookmarkClasses = classNames('place-card__bookmark-button', 'button', {
-    'place-card__bookmark-button--active': offer.isFavorite
-  });
-
   const linkToOffer = `${AppRoute.Offer}/${offer.id}`;
 
   const handleMouseEvent = (evt: MouseEvent<HTMLElement>) => {
@@ -86,12 +83,7 @@ export default function OfferCard({
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={bookmarkClasses} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <Bookmark place={PlaceBookmark.CARD} isActive={offer.isFavorite} />
         </div>
         <Rating place={PlaceRating.CARD} rating={offer.rating} />
         <h2 className="place-card__name">
