@@ -3,12 +3,14 @@ import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 import OffersList from '../../components/offers-list/offers-list';
 import Header from '../../components/header/header';
+import { City } from '../../types/city';
 
 type MainScreenProps = {
+  city: City;
   offers: Offer[];
 };
 
-export default function MainScreen({ offers = [] }: MainScreenProps): JSX.Element {
+export default function MainScreen({ city, offers }: MainScreenProps): JSX.Element {
   const isRenderNav = true;
 
   return (
@@ -52,7 +54,7 @@ export default function MainScreen({ offers = [] }: MainScreenProps): JSX.Elemen
             </ul>
           </section>
         </div>
-        <OffersList offers={offers} />
+        <OffersList city={city} offers={offers} />
       </main>
     </div>
   );

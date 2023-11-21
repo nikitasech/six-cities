@@ -1,13 +1,9 @@
+import { City } from './city';
+import { Location } from './location';
+
 export type Offer = {
   bedrooms: number;
-  city: {
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-    name: string;
-  };
+  city: City;
   description: string;
   goods: string[];
   host: {
@@ -20,11 +16,7 @@ export type Offer = {
   images: string[];
   isFavorite: boolean;
   isPremium: boolean;
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  };
+  location: Location;
   maxAdults: number;
   previewImage: string;
   price: number;

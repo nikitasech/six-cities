@@ -1,57 +1,60 @@
-import classNames from 'classnames';
+import cn from 'classnames';
 import { Link } from 'react-router-dom';
-import { AppRoute, TypeCard } from '../../const';
+import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
+import { MouseEvent } from 'react';
+import Rating, { PlaceRating } from '../rating/rating';
+import Bookmark, { PlaceBookmark } from '../bookmark/boormark';
+
+export enum PlaceOfferCard {
+  MAIN = 'cities',
+  NEAR = 'near-places',
+  FAVORITES = 'favorites'
+}
 
 type OfferCardProps = {
   offer: Offer;
-  type?: TypeCard;
-  onMouseMove?: (id: number) => void;
-  onMouseLeave?: () => void;
+  place?: PlaceOfferCard;
+  setActiveOffer?: (offer: Offer | null) => void;
 }
 
 export default function OfferCard({
   offer,
-  type = TypeCard.Cities,
-  onMouseMove,
-  onMouseLeave
+  place = PlaceOfferCard.MAIN,
+  setActiveOffer
 }: OfferCardProps): JSX.Element {
-  const articleClasses = classNames('place-card', {
-    'favorites__card': type === TypeCard.Favorite,
-    'cities__place-card': type === TypeCard.Cities
+  const linkToOffer = `${AppRoute.Offer}/${offer.id}`;
+  const previewClasses = `place-card__image-wrapper ${place}__image-wrapper`;
+  const articleClasses = cn('place-card', {
+    'cities__place-card': place === PlaceOfferCard.MAIN,
+    'near-places__card': place === PlaceOfferCard.NEAR,
+    'favorites__card': place === PlaceOfferCard.FAVORITES
   });
 
-  const premiumMark = offer.isPremium
-    ? <div className="place-card__mark"><span>Premium</span></div>
-    : null;
-
-  const previewClasses = classNames('place-card__image-wrapper', {
-    'favorites__image-wrapper': type === TypeCard.Favorite,
-    'cities__image-wrapper': type === TypeCard.Cities
+  const infoClasses = cn('place-card__info', {
+    'favorites__card-info': place === PlaceOfferCard.FAVORITES
   });
 
   const PreviewSize = {
-    WIDTH: type === TypeCard.Favorite ? 150 : 260,
-    HEIGHT: type === TypeCard.Favorite ? 110 : 200
+    WIDTH: place === PlaceOfferCard.FAVORITES ? 150 : 260,
+    HEIGHT: place === PlaceOfferCard.FAVORITES ? 110 : 200
   };
 
-  const infoClasses = classNames('place-card__info', {
-    'favorites__card-info': type === TypeCard.Favorite
-  });
+  const handleMouseEvent = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
 
-  const bookmarkClasses = classNames('place-card__bookmark-button', 'button', {
-    'place-card__bookmark-button--active': offer.isFavorite
-  });
-
-  const ratingPercentage = offer.rating / 5 * 100;
-  const linkToOffer = `${AppRoute.Offer}/${offer.id}`;
+    if (setActiveOffer) {
+      setActiveOffer((evt.type === 'mouseenter') ? offer : null);
+    }
+  };
 
   return (
-    <article className={articleClasses}
-      onMouseMove={() => onMouseMove ? onMouseMove : null}
-      onMouseLeave={() => onMouseLeave ? onMouseLeave : null}
+    <article
+      className={articleClasses}
+      onMouseEnter={handleMouseEvent.bind(OfferCard)}
+      onMouseLeave={handleMouseEvent}
     >
-      {premiumMark}
+      {offer.isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={previewClasses}>
         <Link to={linkToOffer}>
           <img
@@ -69,19 +72,9 @@ export default function OfferCard({
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={bookmarkClasses} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <Bookmark place={PlaceBookmark.CARD} isActive={offer.isFavorite} />
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{width: ratingPercentage}}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <Rating place={PlaceRating.CARD} rating={offer.rating} />
         <h2 className="place-card__name">
           <Link to={linkToOffer}>{offer.title}</Link>
         </h2>

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, Location, TypeCard } from '../../const';
+import { AppRoute, Location } from '../../const';
 import { Offer } from '../../types/offer';
-import OfferCard from '../offer-card/offer-card';
+import OfferCard, { PlaceOfferCard } from '../offer-card/offer-card';
 
 type FavoriteLocationProps = {
   location: Location;
@@ -22,7 +22,7 @@ export default function FavoriteLocation({location, offers}: FavoriteLocationPro
         {offers.map((offer) => (
           <OfferCard
             key={offer.id}
-            type={TypeCard.Favorite}
+            place={PlaceOfferCard.FAVORITES}
             offer={offer}
           />
         ))}

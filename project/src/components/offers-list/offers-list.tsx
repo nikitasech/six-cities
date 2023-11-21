@@ -1,22 +1,16 @@
 import { useState } from 'react';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
+import { City } from '../../types/city';
+import Map from '../map/map';
 
 type OffersListProps = {
+  city: City;
   offers: Offer[];
 }
 
-export default function OffersList({offers}: OffersListProps): JSX.Element {
-  // eslint-disable-next-line no-unused-expressions, @typescript-eslint/no-unused-vars
-  const [activeOffer, setActiveOffer] = useState<number|null>(null);
-
-  const handleOfferMouseMove = (id: number) => {
-    setActiveOffer(id);
-  };
-
-  const handleOfferMouseLeave = () => {
-    setActiveOffer(null);
-  };
+export default function OffersList({city, offers}: OffersListProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState<Offer|null>(null);
 
   return (
     <div className="cities">
@@ -44,14 +38,13 @@ export default function OffersList({offers}: OffersListProps): JSX.Element {
               <OfferCard
                 key={offer.id}
                 offer={offer}
-                onMouseMove={handleOfferMouseMove}
-                onMouseLeave={handleOfferMouseLeave}
+                setActiveOffer={setActiveOffer}
               />
             ))}
           </div>
         </section>
         <div className="cities__right-section">
-          <section className="cities__map map"></section>
+          <Map city={city} offers={offers} activeOffer={activeOffer} />
         </div>
       </div>
     </div>

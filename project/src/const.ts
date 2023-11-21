@@ -11,11 +11,6 @@ export enum AuthStatus {
   Unknown = 'UNKNOWN'
 }
 
-export enum TypeCard {
-  Cities = 'CITIES',
-  Favorite = 'FAVORITE'
-}
-
 export enum Location {
   Paris = 'Paris',
   Cologne = 'Cologne',
