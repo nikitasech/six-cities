@@ -3,7 +3,7 @@ import MainScreen from '../../pages/main-screen/main-screen';
 import { AppRoute, AuthStatus } from '../../const';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
-import OfferScreen from '../../pages/property-screen/offer-screen';
+import OfferScreen from '../../pages/offer-screen/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { Offer } from '../../types/offer';
