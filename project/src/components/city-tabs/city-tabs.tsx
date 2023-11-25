@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { setActiveCity } from '../../store/actions';
 import { CityName } from '../../types/city-name';
 
-export default function Cities(): JSX.Element {
+export default function CityTabs(): JSX.Element {
   const dispatch = useAppDispatch();
   const activeCity = useAppSelector((state) => state.activeCity);
   const handleCityClick = (name: CityName) => () => dispatch(setActiveCity(name));
