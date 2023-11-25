@@ -1,4 +1,4 @@
-import { Location } from '../../const';
+import { cities } from '../../const';
 import { Offer } from '../../types/offer';
 import FavoriteLocation from '../../components/favorite-location/favorite-location';
 import Footer from '../../components/footer/footer';
@@ -19,7 +19,7 @@ export default function FavoritesScreen({offers}: FavoriteScreenProps): JSX.Elem
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <FavoriteLocation location={Location.Amsterdam} offers={offers} />
+              <FavoriteLocation cityName={cities[3]} offers={offers} />
             </ul>
           </section>
         </div>
