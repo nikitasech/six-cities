@@ -1,6 +1,7 @@
+import { CityName } from './city-name';
 import { Location } from './location';
 
 export type City = {
-  name: string;
+  name: CityName;
   location: Location;
 }
