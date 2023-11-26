@@ -1,14 +1,15 @@
-import { Offer } from '../../types/offer';
 import OfferCard, { PlaceOfferCard } from '../offer-card/offer-card';
 import { CityName } from '../../types/city-name';
 import CityTab, { PlaceCityTab } from '../city-tab/city-tab';
+import { useAppSelector } from '../../hooks/use-app-selector';
 
 type FavoriteLocationProps = {
   cityName: CityName;
-  offers: Offer[];
 }
 
-export default function FavoriteLocation({ cityName, offers }: FavoriteLocationProps): JSX.Element {
+export default function FavoriteLocation({ cityName }: FavoriteLocationProps): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
