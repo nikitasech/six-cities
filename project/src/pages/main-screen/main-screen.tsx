@@ -16,7 +16,7 @@ export default function MainScreen({ city }: MainScreenProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <CityTabs />
-        <OffersList city={city} />
+        <OffersList />
       </main>
     </div>
   );

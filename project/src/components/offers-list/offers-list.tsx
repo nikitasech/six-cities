@@ -1,15 +1,10 @@
 import { useState } from 'react';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
-import { City } from '../../types/city';
 import Map from '../map/map';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
-type OffersListProps = {
-  city: City;
-}
-
-export default function OffersList({ city }: OffersListProps): JSX.Element {
+export default function OffersList(): JSX.Element {
   const activeCity = useAppSelector((state) => state.activeCity);
   const offers = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === activeCity));
 
@@ -47,7 +42,7 @@ export default function OffersList({ city }: OffersListProps): JSX.Element {
           </div>
         </section>
         <div className="cities__right-section">
-          <Map city={city} offers={offers} activeOffer={activeOffer} />
+          <Map offers={offers} activeOffer={activeOffer} />
         </div>
       </div>
     </div>

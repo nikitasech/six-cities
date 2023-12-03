@@ -1,4 +1,4 @@
-import { Map, icon, marker } from 'leaflet';
+import { Map, Marker, icon } from 'leaflet';
 import { useEffect } from 'react';
 import { Offer } from '../types/offer';
 
@@ -21,13 +21,27 @@ export default function usePoints(
 ) {
   useEffect(() => {
     if (map) {
-      offers.forEach((offer) => marker({
-        lat: offer.location.latitude,
-        lng: offer.location.longitude,
-      }, {
-        icon: offer.id === activeOffer?.id ? activeCustomIcon : defaultCustomIcon,
-      }).addTo(map));
-    }
+      const markers: Marker[] = [];
 
+      offers.forEach((offer) => {
+        const marker = new Marker({
+          lat: offer.location.latitude,
+          lng: offer.location.longitude
+        }, {
+          icon: offer.id === activeOffer?.id ? activeCustomIcon : defaultCustomIcon,
+        });
+
+        marker.addTo(map);
+        markers.push(marker);
+      });
+
+      return () => {
+        if (map) {
+          markers.forEach((marker) => {
+            map.removeLayer(marker);
+          });
+        }
+      };
+    }
   }, [map, offers, activeOffer]);
 }

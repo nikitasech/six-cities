@@ -1,40 +1,44 @@
 import 'leaflet/dist/leaflet.css';
 import { Map, TileLayer } from 'leaflet';
-import { MutableRefObject, useEffect, useState } from 'react';
-import { City } from '../types/city';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { CityLocation } from '../const';
+import { CityName } from '../types/city-name';
 
 const TYLE_PROVIDER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
 export default function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
-  city: City
+  cityName: CityName
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
+  const city = CityLocation[cityName];
+  const isRenderedMap = useRef<boolean>(false);
 
   useEffect(() => {
-    let instance = map;
-
-    if (mapRef.current !== null && map === null) {
-      instance = new Map(mapRef.current, {
-        zoom: city.location.zoom,
+    if (mapRef.current !== null && !isRenderedMap.current) {
+      const instance = new Map(mapRef.current, {
+        zoom: city.zoom,
         scrollWheelZoom: false,
         center: {
-          lat: city.location.latitude,
-          lng: city.location.longitude
+          lat: city.latitude,
+          lng: city.longitude
         }
       });
 
       const layer = new TileLayer(TYLE_PROVIDER, { attribution: COPYRIGHT });
       instance.addLayer(layer);
       setMap(instance);
+      isRenderedMap.current = true;
     }
 
-    return () => {
-      instance?.remove();
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapRef, city]);
+    if (isRenderedMap && map) {
+      map.fitBounds([[city.latitude, city.longitude]], {
+        maxZoom: city.zoom
+      });
+    }
+
+  }, [mapRef, map, city]);
 
   return map;
 }

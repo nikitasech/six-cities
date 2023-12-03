@@ -1,8 +1,8 @@
 import { useRef } from 'react';
-import { City } from '../../types/city';
 import useMap from '../../hooks/use-map';
 import { Offer } from '../../types/offer';
 import usePoints from '../../hooks/use-points';
+import { useAppSelector } from '../../hooks/use-app-selector';
 
 export enum PlaceMap {
   MAIN = 'cities',
@@ -11,14 +11,14 @@ export enum PlaceMap {
 
 type MapProps = {
   place?: PlaceMap;
-  city: City;
   offers: Offer[];
   activeOffer: Offer | null;
 }
 
-export default function Map({ place = PlaceMap.MAIN, city, offers, activeOffer }: MapProps): JSX.Element {
+export default function Map({ place = PlaceMap.MAIN, offers, activeOffer }: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const activeCity = useAppSelector((state) => state.activeCity);
+  const map = useMap(mapRef, activeCity);
   usePoints(map, offers, activeOffer);
 
   const mapClasses = `${place}__map map`;
