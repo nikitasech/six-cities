@@ -1,6 +1,7 @@
 import { CityName } from './types/city-name';
 import { Location } from './types/location';
 
+export const filters: string[] = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 export const cities: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export enum AppRoute {
