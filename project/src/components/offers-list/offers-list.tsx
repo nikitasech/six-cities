@@ -4,10 +4,14 @@ import OfferCard from '../offer-card/offer-card';
 import Map from '../map/map';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import Sort from '../sort/sort';
+import { Comporator } from '../../const';
 
 export default function OffersList(): JSX.Element {
+  const activeSort = useAppSelector((state) => state.activeFilter);
   const activeCity = useAppSelector((state) => state.activeCity);
-  const offers = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === activeCity));
+  const offers = useAppSelector((state) => state.offers
+    .filter((offer) => offer.city.name === activeCity)
+    .sort(Comporator[activeSort]));
 
   const [activeOffer, setActiveOffer] = useState<Offer|null>(null);
 

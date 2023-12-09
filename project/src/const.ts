@@ -1,8 +1,19 @@
-import { CityName } from './types/city-name';
-import { Location } from './types/location';
+import type { CityName } from './types/city-name';
+import type { Location } from './types/location';
+import type { FilterName } from './types/filter-name';
+import type { Offer } from './types/offer';
 
 export const filters: string[] = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 export const cities: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const Comporator: {
+  [key in FilterName]: (a: Offer, b: Offer) => number
+} = {
+  [filters[0]]: () => 0,
+  [filters[1]]: (a, b) => a.price - b.price,
+  [filters[2]]: (a, b) => b.price - a.price,
+  [filters[3]]: (a, b) => b.rating - a.rating,
+};
 
 export enum AppRoute {
   Root = '/',
