@@ -22,6 +22,10 @@ export enum AppRoute {
   Login = '/login'
 }
 
+export enum ServerRoute {
+  Offers = '/hotels'
+}
+
 export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

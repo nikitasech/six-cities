@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { reducer } from './reducer';
 import { createServerAPI } from '../services/server-api';
+import { fetchOffers } from './thunk-actions';
 
 const serverAPI = createServerAPI();
 
@@ -13,3 +14,4 @@ export const store = configureStore({
   })
 });
 
+store.dispatch(fetchOffers());
