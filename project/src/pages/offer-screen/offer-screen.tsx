@@ -1,7 +1,6 @@
 import Header from '../../components/header/header';
 import Map, { PlaceMap } from '../../components/map/map';
 import { offers } from '../../mocks/offers';
-import { city } from '../../mocks/city';
 import OfferCard, { PlaceOfferCard } from '../../components/offer-card/offer-card';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import Bookmark, { PlaceBookmark } from '../../components/bookmark/boormark';
@@ -59,7 +58,7 @@ export default function OfferScreen(): JSX.Element {
               <Reviews reviews={reviews} />
             </div>
           </div>
-          <Map place={PlaceMap.OFFER} city={city} offers={offers} activeOffer={currentOffer} />
+          <Map place={PlaceMap.OFFER} offers={[currentOffer, ...nearOffers]} activeOffer={currentOffer} />
         </section>
         <div className="container">
           <section className="near-places places">
