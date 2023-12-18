@@ -5,8 +5,10 @@ import Map from '../map/map';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import Sort from '../sort/sort';
 import { Comporator } from '../../const';
+import { Loader } from '../loader/loader';
 
 export default function OffersList(): JSX.Element {
+  const isLoading = useAppSelector((state) => state.isLoading);
   const activeSort = useAppSelector((state) => state.activeFilter);
   const activeCity = useAppSelector((state) => state.activeCity);
   const offers = useAppSelector((state) => state.offers
@@ -22,6 +24,7 @@ export default function OffersList(): JSX.Element {
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">{offers.length} places to stay in Amsterdam</b>
           <Sort />
+          {isLoading && <Loader />}
           <div className="cities__places-list places__list tabs__content">
             {offers.map((offer) => (
               <OfferCard
