@@ -1,9 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setActiveCity, setActiveFiter, setOffers } from './actions';
+import { setActiveCity, setActiveFiter, setIsLoading, setOffers } from './actions';
 import { initialState } from './state';
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(setIsLoading, (state, action) => {
+      state.isLoading = action.payload;
+    })
     .addCase(setActiveCity, (state, action) => {
       state.activeCity = action.payload;
     })
