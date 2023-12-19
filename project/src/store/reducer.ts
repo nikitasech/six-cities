@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setActiveCity, setActiveFiter, setAuthStatus, setIsLoading, setOffers } from './actions';
+import { setActiveCity, setActiveFiter, setAuthStatus, setIsLoading, setOffers, setUser } from './actions';
 import { initialState } from './state';
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -18,5 +18,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setActiveFiter, (state, action) => {
       state.activeFilter = action.payload;
+    })
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload;
     });
 });
