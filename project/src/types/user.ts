@@ -1,6 +1,8 @@
+import { Token } from './token';
+
 export type User = {
   email?: string;
-  token?: string;
+  token?: Token;
   avatarUrl: string;
   id: number;
   isPro: boolean;
