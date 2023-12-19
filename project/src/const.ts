@@ -23,7 +23,8 @@ export enum AppRoute {
 }
 
 export enum ServerRoute {
-  Offers = '/hotels'
+  Offers = '/hotels',
+  Login = '/login'
 }
 
 export enum AuthStatus {
