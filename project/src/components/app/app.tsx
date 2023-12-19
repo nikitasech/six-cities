@@ -7,15 +7,12 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import { City } from '../../types/city';
-import { useAppSelector } from '../../hooks/use-app-selector';
 
 type AppProps = {
   city: City;
 }
 
 export default function App({ city }: AppProps): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authStatus);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -24,9 +21,7 @@ export default function App({ city }: AppProps): JSX.Element {
           element={<MainScreen city={city} />}
         />
         <Route path={AppRoute.Favorites} element={
-          <PrivateRoute authStatus={authStatus}>
-            <FavoritesScreen />
-          </PrivateRoute>
+          <PrivateRoute><FavoritesScreen /></PrivateRoute>
         }
         />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
