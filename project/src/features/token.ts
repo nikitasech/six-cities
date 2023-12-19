@@ -1,8 +1,8 @@
-type Token = string;
+import { Token } from '../types/token';
 
 const KEY_NAME = 'six-sities-x-token';
 
-export const setToken = (token: Token) => {
+export const setToken = (token: Token = '') => {
   localStorage.setItem(KEY_NAME, token);
 };
 
