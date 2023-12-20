@@ -14,7 +14,6 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
 }>(
   'fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
-    dispatch(checkAuthStatus());
     dispatch(setIsLoading(true));
     const {data} = await api.get<Offer[]>(ServerRoute.Offers);
     dispatch(setIsLoading(false));
@@ -29,8 +28,9 @@ export const checkAuthStatus = createAsyncThunk<void, undefined, {
   'checkAuthStatus',
   async (_arg, {dispatch, extra: api}) => {
     await api.get<User>(ServerRoute.Login)
-      .then((data) => {
+      .then((response) => {
         dispatch(setAuthStatus(AuthStatus.Auth));
+        dispatch(setUser(response.data));
       })
       .catch((err) => {
         dispatch(setAuthStatus(AuthStatus.NoAuth));
@@ -50,6 +50,7 @@ export const login = createAsyncThunk<void, LoginData, {
         setToken(response.data.token);
         dispatch(setAuthStatus(AuthStatus.Auth));
         dispatch(setUser(response.data));
+        dispatch(fetchOffers());
       });
   }
 );
@@ -64,5 +65,6 @@ export const logout = createAsyncThunk<void, undefined, {
     deleteToken();
     dispatch(setAuthStatus(AuthStatus.NoAuth));
     dispatch(setUser(null));
+    dispatch(fetchOffers());
   }
 );

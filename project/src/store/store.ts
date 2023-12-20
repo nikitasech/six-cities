@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { reducer } from './reducer';
 import { createServerAPI } from '../services/server-api';
-import { fetchOffers } from './thunk-actions';
+import { checkAuthStatus, fetchOffers } from './thunk-actions';
 
 const serverAPI = createServerAPI();
 
@@ -14,4 +14,5 @@ export const store = configureStore({
   })
 });
 
+store.dispatch(checkAuthStatus());
 store.dispatch(fetchOffers());
