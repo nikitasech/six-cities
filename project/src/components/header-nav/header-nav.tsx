@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
+import { MouseEvent } from 'react';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { logout } from '../../store/thunk-actions';
 
 export default function HeaderNav(): JSX.Element {
+  const dispatch = useAppDispatch();
   const userEmail = useAppSelector(((state) => state.user?.email));
   const authStatus = useAppSelector((state) => state.authStatus);
 
@@ -13,6 +17,12 @@ export default function HeaderNav(): JSX.Element {
   const userSpanContent = authStatus === AuthStatus.Auth
     ? userEmail
     : 'Sign in';
+
+
+  const handleLogoutClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+    dispatch(logout());
+  };
 
   return (
     <nav className="header__nav">
@@ -28,7 +38,7 @@ export default function HeaderNav(): JSX.Element {
           authStatus === AuthStatus.Auth
           &&
           <li className="header__nav-item">
-            <Link className="header__nav-link" to={window.location.pathname}>
+            <Link className="header__nav-link" to={window.location.pathname} onClick={handleLogoutClick}>
               <span className="header__signout">Sign out</span>
             </Link>
           </li>
