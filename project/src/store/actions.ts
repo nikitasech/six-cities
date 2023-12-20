@@ -10,4 +10,4 @@ export const setIsLoading = createAction<boolean>('setIsLoading');
 export const setActiveCity = createAction<CityName>('setActiveCity');
 export const setOffers = createAction<Offer[]>('setOffers');
 export const setActiveFiter = createAction<FilterName>('setActiveFilter');
-export const setUser = createAction<User>('setUser');
+export const setUser = createAction<User|null>('setUser');
