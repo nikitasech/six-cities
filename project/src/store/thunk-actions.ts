@@ -5,7 +5,7 @@ import type { Offer } from '../types/offer';
 import { setAuthStatus, setIsLoading, setOffers, setUser } from './actions';
 import { AuthStatus, ServerRoute } from '../const';
 import { User } from '../types/user';
-import { setToken } from '../features/token';
+import { deleteToken, setToken } from '../features/token';
 import { LoginData } from '../types/login-data';
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
@@ -51,5 +51,18 @@ export const login = createAsyncThunk<void, LoginData, {
         dispatch(setAuthStatus(AuthStatus.Auth));
         dispatch(setUser(response.data));
       });
+  }
+);
+
+export const logout = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>(
+  'logout',
+  async (_arg, {dispatch, extra: api}) => {
+    await api.delete(ServerRoute.Logout);
+    deleteToken();
+    dispatch(setAuthStatus(AuthStatus.NoAuth));
+    dispatch(setUser(null));
   }
 );
