@@ -3,6 +3,7 @@ import { AppRoute, AuthStatus } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
 
 export default function HeaderNav(): JSX.Element {
+  const userEmail = useAppSelector(((state) => state.user?.email));
   const authStatus = useAppSelector((state) => state.authStatus);
 
   const userSpanClasses = authStatus === AuthStatus.Auth
@@ -10,7 +11,7 @@ export default function HeaderNav(): JSX.Element {
     : 'header__login';
 
   const userSpanContent = authStatus === AuthStatus.Auth
-    ? 'Oliver.conner@gmail.com' // #TODO заменить на реальный email пользователя
+    ? userEmail
     : 'Sign in';
 
   return (
