@@ -1,15 +1,25 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute, AuthStatus } from '../../const';
 import Header from '../../components/header/header';
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useEffect, useRef } from 'react';
 import { login } from '../../store/thunk-actions';
 import { LoginData } from '../../types/login-data';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
 
 export default function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const authStatus = useAppSelector((state) => state.authStatus);
   const formRef = useRef<HTMLFormElement>(null);
   const isRenderNav = false;
+
+  // https://stackoverflow.com/a/69875097
+  useEffect(() => {
+    if (authStatus === AuthStatus.Auth) {
+      navigate(AppRoute.Root);
+    }
+  });
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
