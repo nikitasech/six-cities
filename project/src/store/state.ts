@@ -9,6 +9,7 @@ export type State = {
   isLoading: boolean;
   activeCity: CityName;
   activeFilter: FilterName;
+  activeOffer: Offer|null;
   offers: Offer[];
   user: User|null;
 }
@@ -18,6 +19,7 @@ export const initialState: State = {
   isLoading: true,
   activeCity: cities[0],
   activeFilter: filters[0],
+  activeOffer: null,
   offers: [],
   user: null
 };
