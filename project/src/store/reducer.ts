@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { setActiveCity, setActiveFiter, setActiveOffer, setAuthStatus, setUser } from './actions';
 import { initialState } from './state';
-import { featchOffer, fetchOffers } from './thunk-actions';
+import { featchNearby, featchOffer, fetchOffers } from './thunk-actions';
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
@@ -36,5 +36,8 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffers.fulfilled, (state, action) => {
       state.isLoading = false;
       state.offers = action.payload;
+    })
+    .addCase(featchNearby.fulfilled, (state, action) => {
+      state.nearbyOffers = action.payload;
     });
 });

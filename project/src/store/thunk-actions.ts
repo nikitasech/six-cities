@@ -33,6 +33,15 @@ export const featchOffer = createAsyncThunk<Offer, OfferID, {
     })
 );
 
+export const featchNearby = createAsyncThunk<Offer[], OfferID, {
+  extra: AxiosInstance;
+}>(
+  'fetchNearby',
+  async (offerID, {extra: api}) => await api
+    .get<Offer[]>(`${ServerRoute.Offers}/${offerID}/nearby`)
+    .then((response) => response.data)
+);
+
 export const checkAuthStatus = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   extra: AxiosInstance;

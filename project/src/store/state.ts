@@ -10,6 +10,7 @@ export type State = {
   activeCity: CityName;
   activeFilter: FilterName;
   activeOffer: Offer|null;
+  nearbyOffers: Offer[];
   offers: Offer[];
   user: User|null;
 }
@@ -20,6 +21,7 @@ export const initialState: State = {
   activeCity: cities[0],
   activeFilter: filters[0],
   activeOffer: null,
+  nearbyOffers: [],
   offers: [],
   user: null
 };
