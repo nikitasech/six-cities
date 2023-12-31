@@ -1,21 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setActiveCity, setActiveFiter, setActiveOffer, setAuthStatus, setIsLoading, setOffers, setUser } from './actions';
+import { setActiveCity, setActiveFiter, setActiveOffer, setAuthStatus, setUser } from './actions';
 import { initialState } from './state';
-import { featchOffer } from './thunk-actions';
+import { featchOffer, fetchOffers } from './thunk-actions';
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setAuthStatus, (state, action) => {
       state.authStatus = action.payload;
     })
-    .addCase(setIsLoading, (state, action) => {
-      state.isLoading = action.payload;
-    })
     .addCase(setActiveCity, (state, action) => {
       state.activeCity = action.payload;
-    })
-    .addCase(setOffers, (state, action) => {
-      state.offers = action.payload;
     })
     .addCase(setActiveFiter, (state, action) => {
       state.activeFilter = action.payload;
@@ -35,5 +29,12 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(featchOffer.rejected, (state) => {
       state.isLoading = false;
+    })
+    .addCase(fetchOffers.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(fetchOffers.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.offers = action.payload;
     });
 });

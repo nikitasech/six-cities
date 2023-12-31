@@ -2,32 +2,29 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { AppDispatch } from '../types/store';
 import type { AxiosError, AxiosInstance } from 'axios';
 import type { Offer } from '../types/offer';
-import { setAuthStatus, setIsLoading, setOffers, setUser } from './actions';
+import { setAuthStatus, setUser } from './actions';
 import { AuthStatus, ServerRoute } from '../const';
 import { User } from '../types/user';
 import { deleteToken, setToken } from '../features/token';
 import { LoginData } from '../types/login-data';
 import { OfferID } from '../types/offer-id';
 
-export const fetchOffers = createAsyncThunk<void, undefined, {
+export const fetchOffers = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'fetchOffers',
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(setIsLoading(true));
+  async (_arg, {extra: api}) => {
     const {data} = await api.get<Offer[]>(ServerRoute.Offers);
-    dispatch(setIsLoading(false));
-    dispatch(setOffers(data));
+    return data;
   },
 );
 
 export const featchOffer = createAsyncThunk<Offer, OfferID, {
-  dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'fetchOffer',
-  async (offerID, {dispatch, extra: api}) => await api
+  async (offerID, {extra: api}) => await api
     .get<Offer>(`${ServerRoute.Offers}/${offerID}`)
     .then((response) => response.data)
     .catch((err) => {
