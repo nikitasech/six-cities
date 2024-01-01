@@ -8,11 +8,16 @@ import { User } from '../types/user';
 import { deleteToken, setToken } from '../features/token';
 import { LoginData } from '../types/login-data';
 import { OfferID } from '../types/offer-id';
+import { State } from './state';
+import { Review } from '../types/review';
 
-export const fetchOffers = createAsyncThunk<Offer[], undefined, {
+type ThunkAPI = {
   dispatch: AppDispatch;
+  getState: State;
   extra: AxiosInstance;
-}>(
+}
+
+export const fetchOffers = createAsyncThunk<Offer[], undefined, ThunkAPI>(
   'fetchOffers',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Offer[]>(ServerRoute.Offers);
@@ -20,9 +25,7 @@ export const fetchOffers = createAsyncThunk<Offer[], undefined, {
   },
 );
 
-export const featchOffer = createAsyncThunk<Offer, OfferID, {
-  extra: AxiosInstance;
-}>(
+export const featchOffer = createAsyncThunk<Offer, OfferID, ThunkAPI>(
   'fetchOffer',
   async (offerID, {extra: api}) => await api
     .get<Offer>(`${ServerRoute.Offers}/${offerID}`)
@@ -33,19 +36,21 @@ export const featchOffer = createAsyncThunk<Offer, OfferID, {
     })
 );
 
-export const featchNearby = createAsyncThunk<Offer[], OfferID, {
-  extra: AxiosInstance;
-}>(
+export const featchNearby = createAsyncThunk<Offer[], OfferID, ThunkAPI>(
   'fetchNearby',
   async (offerID, {extra: api}) => await api
     .get<Offer[]>(`${ServerRoute.Offers}/${offerID}/nearby`)
     .then((response) => response.data)
 );
 
-export const checkAuthStatus = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  extra: AxiosInstance;
-}>(
+export const fetchReviews = createAsyncThunk<Review[], OfferID, ThunkAPI>(
+  'fetchReviews',
+  async (offerID, {extra: api}) => await api
+    .get<Review[]>(`${ServerRoute.Reviews}/${offerID}`)
+    .then((response) => response.data)
+);
+
+export const checkAuthStatus = createAsyncThunk<void, undefined, ThunkAPI>(
   'checkAuthStatus',
   async (_arg, {dispatch, extra: api}) => {
     await api.get<User>(ServerRoute.Login)
@@ -60,10 +65,7 @@ export const checkAuthStatus = createAsyncThunk<void, undefined, {
   },
 );
 
-export const login = createAsyncThunk<void, LoginData, {
-  dispatch: AppDispatch;
-  extra: AxiosInstance;
-}>(
+export const login = createAsyncThunk<void, LoginData, ThunkAPI>(
   'login',
   async (loginData, {dispatch, extra: api}) => {
     await api.post<User>(ServerRoute.Login, loginData)
@@ -76,10 +78,7 @@ export const login = createAsyncThunk<void, LoginData, {
   }
 );
 
-export const logout = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  extra: AxiosInstance;
-}>(
+export const logout = createAsyncThunk<void, undefined, ThunkAPI>(
   'logout',
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(ServerRoute.Logout);
