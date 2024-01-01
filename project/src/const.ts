@@ -24,6 +24,7 @@ export enum AppRoute {
 
 export enum ServerRoute {
   Offers = '/hotels',
+  Reviews = '/comments',
   Login = '/login',
   Logout = 'logout'
 }

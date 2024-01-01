@@ -5,14 +5,15 @@ import Rating, { PlaceRating } from '../rating/rating';
 import OfferGoods from '../offer-goods/offer-goods';
 import Reviews from '../reviews/reviews';
 import Map, { PlaceMap } from '../map/map';
-import { reviews } from '../../mocks/reviews';
+import { Review } from '../../types/review';
 
 type OfferProps = {
   currentOffer: TOffer;
   nearOffers: TOffer[];
+  reviews: Review[];
 }
 
-export function Offer({ currentOffer, nearOffers }: OfferProps): JSX.Element {
+export function Offer({ currentOffer, nearOffers, reviews }: OfferProps): JSX.Element {
   const hostAvatarClasses = `property__avatar-wrapper user__avatar-wrapper ${currentOffer.host.isPro
     ? 'property__avatar-wrapper--pro'
     : ''}`;
