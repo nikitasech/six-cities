@@ -19,7 +19,14 @@ export enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
   Offer = '/offer',
-  Login = '/login'
+  Login = '/login',
+}
+
+export enum ServerRoute {
+  Offers = '/hotels',
+  Reviews = '/comments',
+  Login = '/login',
+  Logout = 'logout'
 }
 
 export enum AuthStatus {

@@ -1,80 +1,57 @@
 import Header from '../../components/header/header';
-import Map, { PlaceMap } from '../../components/map/map';
-import { offers } from '../../mocks/offers';
 import OfferCard, { PlaceOfferCard } from '../../components/offer-card/offer-card';
-import OfferGallery from '../../components/offer-gallery/offer-gallery';
-import Bookmark, { PlaceBookmark } from '../../components/bookmark/boormark';
-import Rating, { PlaceRating } from '../../components/rating/rating';
-import OfferGoods from '../../components/offer-goods/offer-goods';
-import Reviews from '../../components/reviews/reviews';
-import { reviews } from '../../mocks/reviews';
+import { Offer } from '../../components/offer/offer';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { featchNearby, featchOffer, fetchReviews } from '../../store/thunk-actions';
+import { useEffect } from 'react';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { Loader } from '../../components/loader/loader';
 
 export default function OfferScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
   const isRenderNav = true;
-  const currentOffer = offers[0];
-  const nearOffers = offers.slice(1);
+  const isLoading = useAppSelector((state) => state.isLoading);
+  const currentOffer = useAppSelector((state) => state.activeOffer);
+  const nearOffers = useAppSelector((state) => state.nearbyOffers);
+  const reviews = useAppSelector((state) => state.reviews);
+  const currentOfferID = Number(useParams().id);
 
-  const hostAvatarClasses = `property__avatar-wrapper user__avatar-wrapper ${currentOffer.host.isPro
-    ? 'property__avatar-wrapper--pro'
-    : ''}`;
+  useEffect(() => {
+    dispatch(featchOffer(currentOfferID));
+    dispatch(featchNearby(currentOfferID));
+    dispatch(fetchReviews(currentOfferID));
+  }, [currentOfferID, dispatch]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
-    <div className="page">
-      <Header isRenderNav={isRenderNav} />
-      <main className="page__main page__main--property">
-        <section className="property">
-          <OfferGallery sources={currentOffer.images} />
-          <div className="property__container container">
-            <div className="property__wrapper">
-              {currentOffer.isPremium && <div className="property__mark"><span>Premium</span></div>}
-              <div className="property__name-wrapper">
-                <h1 className="property__name">{currentOffer.title}</h1>
-                <Bookmark place={PlaceBookmark.OFFER} isActive={currentOffer.isFavorite} />
+    (!currentOffer)
+      ?
+      <NotFoundScreen />
+      :
+      <div className="page">
+        <Header isRenderNav={isRenderNav} />
+        <main className="page__main page__main--property">
+          <Offer currentOffer={currentOffer} nearOffers={nearOffers} reviews={reviews} />
+          <div className="container">
+            <section className="near-places places">
+              <h2 className="near-places__title">Other places in the neighbourhood</h2>
+              <div className="near-places__list places__list">
+                {nearOffers && nearOffers.map((offer) => (
+                  <OfferCard
+                    key={offer.id}
+                    place={PlaceOfferCard.NEAR}
+                    offer={offer}
+                  />
+                ))}
               </div>
-              <Rating place={PlaceRating.OFFER} rating={currentOffer.rating}/>
-              <ul className="property__features">
-                <li className="property__feature property__feature--entire">{currentOffer.type}</li>
-                <li className="property__feature property__feature--bedrooms">{currentOffer.bedrooms} Bedrooms</li>
-                <li className="property__feature property__feature--adults">Max {currentOffer.maxAdults} adults</li>
-              </ul>
-              <div className="property__price">
-                <b className="property__price-value">&euro;{currentOffer.price}</b>
-                <span className="property__price-text">&nbsp;night</span>
-              </div>
-              <OfferGoods goods={currentOffer.goods} />
-              <div className="property__host">
-                <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div className={hostAvatarClasses}>
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
-                  </div>
-                  <span className="property__user-name">{currentOffer.host.name}</span>
-                  {currentOffer.host.isPro && <span className="property__user-status">Pro</span>}
-                </div>
-                <div className="property__description">
-                  <p className="property__text">{currentOffer.description}</p>
-                </div>
-              </div>
-              <Reviews reviews={reviews} />
-            </div>
+            </section>
           </div>
-          <Map place={PlaceMap.OFFER} offers={[currentOffer, ...nearOffers]} activeOffer={currentOffer} />
-        </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {nearOffers.map((offer) => (
-                <OfferCard
-                  key={offer.id}
-                  place={PlaceOfferCard.NEAR}
-                  offer={offer}
-                />
-              ))}
-            </div>
-          </section>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
   );
 }
